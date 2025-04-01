@@ -1,24 +1,30 @@
+from datetime import datetime
+from typing import Annotated
+
 from pydantic import BaseModel, Field
-from typing import List
+
 
 class Comment(BaseModel):
-    id: int
-    news_id: int
-    title: str
-    date: str
-    comment: str
+    id: Annotated[int, Field(gt=0)]
+    news_id: Annotated[int, Field(gt=0)]
+    title: Annotated[str, Field(max_length=255)]
+    date: datetime
+    comment: Annotated[str, Field(max_length=1000)]
+
 
 class NewsItem(BaseModel):
-    id: int
-    title: str
-    date: str
-    body: str
+    id: Annotated[int, Field(gt=0)]
+    title: Annotated[str, Field(max_length=255)]
+    date: datetime
+    body: Annotated[str, Field(max_length=5000)]
     deleted: bool
-    comments_count: int = Field(default=0)
+    comments_count: Annotated[int, Field(ge=0)]
+
 
 class NewsItemWithComments(NewsItem):
-    comments: List[Comment] = Field(default_factory=list)
+    comments: list[Comment]
+
 
 class NewsResponse(BaseModel):
-    news: List[NewsItem]
-    news_count: int
+    news: list[NewsItem]
+    news_count: Annotated[int, Field(ge=0)]

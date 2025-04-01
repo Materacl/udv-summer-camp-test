@@ -30,7 +30,8 @@ def Singleton[T](cls: type[T]) -> type:
 
         __new__ always returns the same instance,
         but __init__ would normally be called repeatedly with different arguments
-        By overriding __init__ we ensure that initialization happens only once inside __new__
+        By overriding __init__ we ensure that initialization
+        happens only once inside __new__
 
         Example:
         @Singleton

@@ -2,8 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
-from . import api
-from . import config
+from . import api, config
 
 settings = config.get_settings()
 
@@ -18,7 +17,9 @@ def add_middlewares(application: FastAPI) -> None:
     )
 
     if not settings.DEBUG:
-        application.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.ALLOW_HOSTS)
+        application.add_middleware(
+            TrustedHostMiddleware, allowed_hosts=settings.ALLOW_HOSTS
+        )
 
 
 def create_app() -> FastAPI:

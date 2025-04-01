@@ -23,7 +23,9 @@ class Settings(BaseSettings):
 
     API_PREFIX: str = "/api"
 
-    model_config = SettingsConfigDict(env_file=Path(__file__).parents[1] / ".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=Path(__file__).parents[1] / ".env", extra="ignore"
+    )
 
 
 def get_settings():
